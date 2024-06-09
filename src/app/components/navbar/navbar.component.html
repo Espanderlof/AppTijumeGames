@@ -8,7 +8,8 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/" routerLinkActive="active" aria-current="page">Inicio</a>
+                    <a class="nav-link" routerLink="/" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}" aria-current="page">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -16,10 +17,10 @@
                         Categorías
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/categoria?id=1">Estrategia</a></li>
-                        <li><a class="dropdown-item" routerLink="/categoria?id=2">Party</a></li>
-                        <li><a class="dropdown-item" routerLink="/categoria?id=3">Cooperativos</a></li>
-                        <li><a class="dropdown-item" routerLink="/categoria?id=4">Temáticos</a></li>
+                        <li><a class="dropdown-item" routerLink="/categoria/1">Estrategia</a></li>
+                        <li><a class="dropdown-item" routerLink="/categoria/2">Party</a></li>
+                        <li><a class="dropdown-item" routerLink="/categoria/3">Cooperativos</a></li>
+                        <li><a class="dropdown-item" routerLink="/categoria/4">Temáticos</a></li>
                     </ul>
                 </li>
             </ul>
@@ -28,7 +29,8 @@
                     <a class="nav-link" routerLink="/registrarme" routerLinkActive="active">Registrarme</a>
                 </li>
             </ul>
-            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"
+                aria-controls="cartOffcanvas">
                 <i class="bi bi-cart"></i>
             </button>
         </div>

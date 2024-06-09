@@ -12,7 +12,7 @@ export const routes: Routes = [
     // {path: '', redirectTo: 'index', pathMatch: 'full'},
     { path: '', component: HomeComponent },
     // { path: 'home', component: HomeComponent },
-    // { path: 'navbar', component: NavbarComponent },
+    { path: 'navbar', component: NavbarComponent },
     // { path: 'categoria/:id', component: CategoriaComponent },
     { path: 'categorias', component: CategoriasComponent },
     { path: 'registrarme', component: RegistrarmeComponent },
