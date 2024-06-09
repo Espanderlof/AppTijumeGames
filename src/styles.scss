@@ -1,0 +1,114 @@
+:root {
+    --primary-color: #333;
+    --secondary-color: #f1f1f1;
+    --text-color: #323030;
+    --link-color: #333;
+    --accent-color: gold;
+    --button-color: #4caf50;
+    --button-hover-color: #45a049;
+    --disabled-opacity: 0.6;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--link-color);
+}
+
+.btn-primary {
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
+}
+
+.disabled {
+    opacity: var(--disabled-opacity);
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px var(--accent-color);
+    transform: translateY(-5px);
+}
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.btn-primary {
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
+    animation: jump 0.7s infinite;
+}
+
+.navTitulo {
+    animation: cambiarColor 5s linear infinite;
+}
+
+@keyframes cambiarColor {
+    0% {
+        color: #ff0000;
+    }
+    10% {
+        color: #ff8000;
+    }
+    20% {
+        color: #ffff00;
+    }
+    30% {
+        color: #80ff00;
+    }
+    40% {
+        color: #00ff00;
+    }
+    50% {
+        color: #00ff80;
+    }
+    60% {
+        color: #00ffff;
+    }
+    70% {
+        color: #0080ff;
+    }
+    80% {
+        color: #0000ff;
+    }
+    90% {
+        color: #8000ff;
+    }
+    100% {
+        color: #ff0080;
+    }
+}
