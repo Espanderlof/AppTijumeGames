@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CartOffcanvasComponent } from '../cart-offcanvas/cart-offcanvas.component';
 
 function isNavigationEnd(event: Event): event is NavigationEnd {
   return event instanceof NavigationEnd;
@@ -10,7 +11,7 @@ function isNavigationEnd(event: Event): event is NavigationEnd {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CartOffcanvasComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
