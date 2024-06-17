@@ -5,39 +5,81 @@
         </div>
     </div>
     <div class="row justify-content-center" id="viewMain">
-        <form>
+        <form [formGroup]="miFormulario" (ngSubmit)="submitForm()" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="nombreCompleto" class="form-label">Nombre Completo *</label>
-                <input type="text" class="form-control" id="nombreCompleto" maxlength="100" required>
+                <input type="text" class="form-control" id="nombreCompleto" formControlName="nombreCompleto" [ngClass]="{'is-invalid': miFormulario.get('nombreCompleto')?.touched && miFormulario.get('nombreCompleto')?.invalid}">
+                <div *ngIf="miFormulario.get('nombreCompleto')?.touched && miFormulario.get('nombreCompleto')?.hasError('required')" class="invalid-feedback">
+                    El nombre completo es requerido
+                </div>
+                <div *ngIf="miFormulario.get('nombreCompleto')?.touched && miFormulario.get('nombreCompleto')?.hasError('maxlength')" class="invalid-feedback">
+                    El nombre completo no debe exceder los 100 caracteres
+                </div>
             </div>
             <div class="mb-3">
                 <label for="nombreUsuario" class="form-label">Nombre de Usuario *</label>
-                <input type="text" class="form-control" id="nombreUsuario" maxlength="100" required>
+                <input type="text" class="form-control" id="nombreUsuario" formControlName="nombreUsuario" [ngClass]="{'is-invalid': miFormulario.get('nombreUsuario')?.touched && miFormulario.get('nombreUsuario')?.invalid}">
+                <div *ngIf="miFormulario.get('nombreUsuario')?.touched && miFormulario.get('nombreUsuario')?.hasError('required')" class="invalid-feedback">
+                    El nombre de usuario es requerido
+                </div>
+                <div *ngIf="miFormulario.get('nombreUsuario')?.touched && miFormulario.get('nombreUsuario')?.hasError('maxlength')" class="invalid-feedback">
+                    El nombre de usuario no debe exceder los 100 caracteres
+                </div>
             </div>
             <div class="mb-3">
                 <label for="correoElectronico" class="form-label">Correo Electrónico *</label>
-                <input type="email" class="form-control" id="correoElectronico" maxlength="100" required>
+                <input type="email" class="form-control" id="correoElectronico" formControlName="correoElectronico" [ngClass]="{'is-invalid': miFormulario.get('correoElectronico')?.touched && miFormulario.get('correoElectronico')?.invalid}">
+                <div *ngIf="miFormulario.get('correoElectronico')?.touched && miFormulario.get('correoElectronico')?.hasError('required')" class="invalid-feedback">
+                    El correo electrónico es requerido
+                </div>
+                <div *ngIf="miFormulario.get('correoElectronico')?.touched && miFormulario.get('correoElectronico')?.hasError('email')" class="invalid-feedback">
+                    El correo electrónico no es válido
+                </div>
             </div>
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contraseña *</label>
-                <input type="password" class="form-control" id="contrasena" maxlength="18" required>
+                <input type="password" class="form-control" id="contrasena" formControlName="contrasena" [ngClass]="{'is-invalid': miFormulario.get('contrasena')?.touched && miFormulario.get('contrasena')?.invalid}">
+                <div *ngIf="miFormulario.get('contrasena')?.touched && miFormulario.get('contrasena')?.hasError('required')" class="invalid-feedback">
+                    La contraseña es requerida
+                </div>
+                <div *ngIf="miFormulario.get('contrasena')?.touched && miFormulario.get('contrasena')?.hasError('minlength')" class="invalid-feedback">
+                    La contraseña debe tener al menos 6 caracteres
+                </div>
+                <div *ngIf="miFormulario.get('contrasena')?.touched && miFormulario.get('contrasena')?.hasError('maxlength')" class="invalid-feedback">
+                    La contraseña no debe exceder los 18 caracteres
+                </div>
+                <div *ngIf="miFormulario.get('contrasena')?.touched && miFormulario.get('contrasena')?.hasError('pattern')" class="invalid-feedback">
+                    La contraseña debe contener al menos un número y una letra mayúscula
+                </div>
             </div>
             <div class="mb-3">
                 <label for="repetirContrasena" class="form-label">Repetir Contraseña *</label>
-                <input type="password" class="form-control" id="repetirContrasena" maxlength="18" required>
+                <input type="password" class="form-control" id="repetirContrasena" formControlName="repetirContrasena" [ngClass]="{'is-invalid': miFormulario.get('repetirContrasena')?.touched && miFormulario.get('repetirContrasena')?.invalid}">
+                <div *ngIf="miFormulario.get('repetirContrasena')?.touched && miFormulario.get('repetirContrasena')?.hasError('required')" class="invalid-feedback">
+                    Repetir contraseña es requerido
+                </div>
+                <div *ngIf="miFormulario.get('repetirContrasena')?.touched && miFormulario.get('repetirContrasena')?.hasError('passwordMismatch')" class="invalid-feedback">
+                    Las contraseñas no coinciden
+                </div>
             </div>
             <div class="mb-3">
                 <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento *</label>
-                <input type="date" class="form-control" id="fechaNacimiento" required>
+                <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento" [ngClass]="{'is-invalid': miFormulario.get('fechaNacimiento')?.touched && miFormulario.get('fechaNacimiento')?.invalid}">
+                <div *ngIf="miFormulario.get('fechaNacimiento')?.touched && miFormulario.get('fechaNacimiento')?.hasError('required')" class="invalid-feedback">
+                    La fecha de nacimiento es requerida
+                </div>
+                <div *ngIf="miFormulario.get('fechaNacimiento')?.touched && miFormulario.get('fechaNacimiento')?.hasError('ageInvalid')" class="invalid-feedback">
+                    Debes tener al menos 13 años
+                </div>
             </div>
             <div class="mb-3">
                 <label for="direccionDespacho" class="form-label">Dirección de Despacho</label>
-                <textarea class="form-control" id="direccionDespacho" rows="3" maxlength="250" required></textarea>
+                <textarea class="form-control" id="direccionDespacho" formControlName="direccionDespacho" rows="3" maxlength="250"></textarea>
             </div>
             <div class="text-center">
                 <button (click)="registroUsuarioLimpiarForm();" type="button" class="btn btn-secondary m-1">Limpiar formulario</button>
-                <button (click)="registroUsuarioValidar();" type="button" class="btn btn-primary m-1">Registrarme</button>
-              </div>
+                <button type="submit" class="btn btn-primary m-1">Registrarme</button>
+            </div>
         </form>
     </div>
 </div>

@@ -1,37 +1,68 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registrarme',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './registrarme.component.html',
-  styleUrl: './registrarme.component.scss'
+  styleUrls: ['./registrarme.component.scss']
 })
 export class RegistrarmeComponent {
-  registroUsuarioLimpiarForm() {
-    console.log("limpiar");
-    (document.querySelector("#nombreCompleto") as HTMLInputElement).value = "";
-    (document.querySelector("#nombreUsuario") as HTMLInputElement).value = "";
-    (document.querySelector("#correoElectronico") as HTMLInputElement).value = "";
-    (document.querySelector("#contrasena") as HTMLInputElement).value = "";
-    (document.querySelector("#repetirContrasena") as HTMLInputElement).value = "";
-    (document.querySelector("#fechaNacimiento") as HTMLInputElement).value = "";
-    (document.querySelector("#direccionDespacho") as HTMLTextAreaElement).value = "";
+  miFormulario!: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.miFormulario = this.fb.group({
+      nombreCompleto: ['', [Validators.required, Validators.maxLength(100)]],
+      nombreUsuario: ['', [Validators.required, Validators.maxLength(100)]],
+      correoElectronico: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(18), Validators.pattern('^(?=.*[A-Z])(?=.*\\d).+$')]],
+      repetirContrasena: ['', [Validators.required, this.passwordsMatch]],
+      fechaNacimiento: ['', [Validators.required, this.ageValidator]],
+      direccionDespacho: ['', [Validators.maxLength(250)]]
+    });
   }
 
-  registroUsuarioValidar() {
-    const nombreCompleto = (document.querySelector("#nombreCompleto") as HTMLInputElement).value.trim();
-    const nombreUsuario = (document.querySelector("#nombreUsuario") as HTMLInputElement).value.trim();
-    const correoElectronico = (document.querySelector("#correoElectronico") as HTMLInputElement).value.trim();
-    const contrasena = (document.querySelector("#contrasena") as HTMLInputElement).value.trim();
-    const repetirContrasena = (document.querySelector("#repetirContrasena") as HTMLInputElement).value.trim();
-    const fechaNacimiento = (document.querySelector("#fechaNacimiento") as HTMLInputElement).value.trim();
-    const direccionDespacho = (document.querySelector("#direccionDespacho") as HTMLTextAreaElement).value.trim();
+  ngOnInit(): void {}
 
-    // Resto de la lógica de validación...
+  submitForm() {
+    if (this.miFormulario.valid) {
+      console.log('submitForm valido');
+      this.miFormulario.reset();
+    } else {
+      console.log('submitForm invalido');
+      this.miFormulario.markAllAsTouched();
+    }
+  }
 
-    // Si todas las validaciones pasan, se puede enviar el formulario
-    alert("Registro correcto. ¡Bienvenido a TIJUME GAMES!");
-    return true;
+  registroUsuarioLimpiarForm(): void {
+    this.miFormulario.reset();
+  }
+
+  passwordsMatch: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    if (control.parent) {
+      const password = control.parent.get('contrasena')?.value;
+      const confirmPassword = control.value;
+
+      if (password && confirmPassword && password !== confirmPassword) {
+        return { passwordMismatch: true };
+      }
+    }
+
+    return null;
+  }
+
+  ageValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const birthDate = new Date(control.value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age >= 13 ? null : { ageInvalid: true };
   }
 }
