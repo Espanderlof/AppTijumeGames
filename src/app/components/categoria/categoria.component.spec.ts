@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CategoriaComponent } from './categoria.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CategoriaComponent', () => {
   let component: CategoriaComponent;
@@ -8,7 +8,10 @@ describe('CategoriaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CategoriaComponent]
+      imports: [
+        CategoriaComponent,
+        RouterTestingModule // Importa el módulo de pruebas para rutas
+      ]
     })
     .compileComponents();
 
