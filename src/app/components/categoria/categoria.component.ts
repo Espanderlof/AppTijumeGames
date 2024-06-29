@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { JuegosService, Categoria } from '../../services/juegos.service';
 
 @Component({
   selector: 'app-categoria',
@@ -11,15 +12,24 @@ import { map } from 'rxjs/operators';
   styleUrl: './categoria.component.scss'
 })
 export class CategoriaComponent implements OnInit {
-  categoriaId: string | null = null;
-
-  constructor(private route: ActivatedRoute) {}
+  categoria: Categoria | undefined;
+  
+  constructor(
+    private route: ActivatedRoute,
+    private juegosService: JuegosService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      map(params => params.get('id'))
-    ).subscribe(id => {
-      this.categoriaId = id;
-    });
+      switchMap(params => {
+        const id = params.get('id');
+        return this.juegosService.getCategorias().pipe(
+          switchMap(categorias => {
+            this.categoria = categorias.find(cat => cat.id.toString() === id);
+            return [];
+          })
+        );
+      })
+    ).subscribe();
   }
 }
